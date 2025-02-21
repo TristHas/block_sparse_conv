@@ -189,7 +189,7 @@ def generate_river_forest(n_trees=3,
     forest = nx.DiGraph()
     next_offset = 0
     for i in range(n_trees):
-        main_length = np.random.choice(max_depth)
+        main_length = max_depth #np.random.choice(max_depth)
         tree = generate_fixed_length_river(main_length=main_length,
                                            branch_prob=branch_prob,
                                            branch_factor_options=branch_factor_options,
