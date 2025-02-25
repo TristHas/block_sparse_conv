@@ -190,9 +190,14 @@ def generate_forest(n_trees=3, max_heights=1000):
     forest = nx.DiGraph()
     next_offset = 1
     for i in range(n_trees):
-        h = np.random.choice(max_heights) + 1
-        tree = generate_binary_tree(h)
-        # Relabel nodes to ensure uniqueness across trees.
+        main_length = max_depth #np.random.choice(max_depth)
+        tree = generate_fixed_length_river(main_length=main_length,
+                                           branch_prob=branch_prob,
+                                           branch_factor_options=branch_factor_options,
+                                           branch_factor_probs=branch_factor_probs,
+                                           tau_mean=tau_mean,
+                                           tau_sigma=tau_sigma)
+        # Relabel nodes to ensure uniqueness across trees
         mapping = {node: node + next_offset for node in tree.nodes()}
         tree = nx.relabel_nodes(tree, mapping)
         forest = nx.disjoint_union(forest, tree)
